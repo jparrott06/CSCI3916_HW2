@@ -32,6 +32,88 @@ function getJSONObject(req) {
     return json;
 }
 
+function JSONObjectSetMessage(req, message) {
+    var json = {
+        headers : "No Headers",
+        key: process.env.UNIQUE_KEY,
+        body : "No Body"
+    };
+
+    if (req.body != null) {
+        json.body = req.body;
+    }
+    if (req.headers != null) {
+        json.headers = { status: 200, message: message, headers: req.headers, query: req.body.q, env: process.env.UNIQUE_KEY };
+    }
+
+    return json;
+}
+
+router.route('/movies')
+    .get(function (res, req) {
+        console.log(req.body);
+        res = res.status(200);
+
+        //res.setHeader('message', 'GET movies');
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        return(JSONObjectSetMessage(req, "GET movies"));
+
+
+    })
+
+    .post(function (res, req) {
+        console.log(req.body);
+        res = res.status(200);
+
+        //res.setHeader('message', 'movie saved');
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        return(JSONObjectSetMessage(req, "movie saved"));
+
+
+    })
+
+    .put(authJwtController.isAuthenticated, function(req, res){
+        console.log(req.body);
+        res = res.status(200);
+
+        //res.setHeader('message','movie updated');
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        return(JSONObjectSetMessage(req, "movie updated"));
+
+    })
+
+    .delete(authController.isAuthenticated, function(req, res){
+        console.log(req.body);
+        res = res.status(200);
+
+        //res.setHeader('message', 'movie deleted');
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        return(JSONObjectSetMessage(req, "movie deleted"));
+
+    });
+
+
+
 router.route('/post')
     .post(authController.isAuthenticated, function (req, res) {
             console.log(req.body);
