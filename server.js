@@ -54,8 +54,6 @@ router.route('/movies')
         console.log(req.body);
         res = res.status(200);
 
-        //res.setHeader('message', 'GET movies');
-
         if (req.get('Content-Type')) {
             console.log("Content-Type: " + req.get('Content-Type'));
             res = res.type(req.get('Content-Type'));
@@ -69,8 +67,6 @@ router.route('/movies')
     .post(function (res, req) {
         console.log(req.body);
         res = res.status(200);
-
-        //res.setHeader('message', 'movie saved');
 
         if (req.get('Content-Type')) {
             console.log("Content-Type: " + req.get('Content-Type'));
@@ -86,8 +82,6 @@ router.route('/movies')
         console.log(req.body);
         res = res.status(200);
 
-        //res.setHeader('message','movie updated');
-
         if (req.get('Content-Type')) {
             console.log("Content-Type: " + req.get('Content-Type'));
             res = res.type(req.get('Content-Type'));
@@ -100,8 +94,6 @@ router.route('/movies')
     .delete(authController.isAuthenticated, function(req, res){
         console.log(req.body);
         res = res.status(200);
-
-        //res.setHeader('message', 'movie deleted');
 
         if (req.get('Content-Type')) {
             console.log("Content-Type: " + req.get('Content-Type'));
