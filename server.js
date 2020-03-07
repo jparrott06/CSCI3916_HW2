@@ -53,7 +53,7 @@ function JSONObjectSetMessage(req, message) {
 }
 
 router.route('/movies')
-    .get(function (res, req) {
+    .get( function (req, res) {
         console.log(req.body);
         res = res.status(200);
 
@@ -62,12 +62,10 @@ router.route('/movies')
             res = res.type(req.get('Content-Type'));
         }
 
-        return(JSONObjectSetMessage(req, "GET movies"));
-
+        res.json(JSONObjectSetMessage(req, "GET movies"));
 
     })
-
-    .post(function (res, req) {
+    .post(function (req, res) {
         console.log(req.body);
         res = res.status(200);
 
@@ -76,12 +74,9 @@ router.route('/movies')
             res = res.type(req.get('Content-Type'));
         }
 
-        return(JSONObjectSetMessage(req, "movie saved"));
-
-
+        res.json(JSONObjectSetMessage(req, "movie saved"));
     })
-
-    .put(authJwtController.isAuthenticated, function(req, res){
+    .put(authJwtController.isAuthenticated, function (req, res) {
         console.log(req.body);
         res = res.status(200);
 
@@ -90,11 +85,10 @@ router.route('/movies')
             res = res.type(req.get('Content-Type'));
         }
 
-        return(JSONObjectSetMessage(req, "movie updated"));
-
+        res.json(JSONObjectSetMessage(req, "movie updated"));
     })
+    .delete(authController.isAuthenticated, function (req, res) {
 
-    .delete(authController.isAuthenticated, function(req, res){
         console.log(req.body);
         res = res.status(200);
 
@@ -103,11 +97,8 @@ router.route('/movies')
             res = res.type(req.get('Content-Type'));
         }
 
-        return(JSONObjectSetMessage(req, "movie deleted"));
-
+        res.json(JSONObjectSetMessage(req, "movie deleted"));
     });
-
-
 
 router.route('/post')
     .post(authController.isAuthenticated, function (req, res) {
